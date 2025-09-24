@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt" xml:lang="pt">
+<head>
+    <title>ToDoList Teste</title>
+</head>
+<body>
+<h1>ToDoList</h1>
+
+<h2>Adicionar Tarefa</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Adicionar</button>
+</form>
+
+<h2>Tarefas</h2>
+<ul>
+    {% for task in tasks %}
+        <li>
+            {{ task.title }} - {{ task.get_status_display }}
+            <a href="{% url 'toggle_task' task.pk %}">[Toggle]</a>
+        </li>
+    {% empty %}
+        <li>Nenhuma tarefa ainda.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
